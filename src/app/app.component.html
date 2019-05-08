@@ -1,21 +1,167 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <tabset>
+    <tab heading="Порівняння за CPU">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th>CPU</th>
+            <th *ngFor="let computer of computerNames">
+              {{ computer }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of compCPU; let i = index; trackBy: trackByFn">
+            {{ computerNames[i] }}
+            <td class="field" *ngFor="let field of row; let j = index; trackBy: trackByFn">
+              <input type="text" [disabled]="i === j" appMyNumberOnly [(ngModel)]="compCPU[i][j]" class="form-control"
+                (ngModelChange)="applyChanges(compCPU, i, j)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+    <tab heading="Порівняння за GPU">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th>GPU</th>
+            <th *ngFor="let computer of computerNames">
+              {{ computer }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of compGPU; let i = index; trackBy: trackByFn">
+            {{ computerNames[i] }}
+            <td class="field" *ngFor="let field of row; let j = index; trackBy: trackByFn">
+              <input type="text" [disabled]="i === j" appMyNumberOnly [(ngModel)]="compGPU[i][j]" class="form-control"
+                (ngModelChange)="applyChanges(compGPU, i, j)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+    <tab heading="Порівняння за GPU">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th>GPU</th>
+            <th *ngFor="let computer of computerNames">
+              {{ computer }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of compHDD; let i = index; trackBy: trackByFn">
+            {{ computerNames[i] }}
+            <td class="field" *ngFor="let field of row; let j = index; trackBy: trackByFn">
+              <input type="text" [disabled]="i === j" appMyNumberOnly [(ngModel)]="compHDD[i][j]" class="form-control"
+                (ngModelChange)="applyChanges(compHDD, i, j)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+    <tab heading="Порівняння ознак">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th>Ознака</th>
+            <th *ngFor="let prop of propNames">
+              {{ prop }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of compProps; let i = index; trackBy: trackByFn">
+            {{ propNames[i] }}
+            <td class="field" *ngFor="let field of row; let j = index; trackBy: trackByFn">
+              <input type="text" [disabled]="i === j" appMyNumberOnly [(ngModel)]="compProps[i][j]" class="form-control"
+                (ngModelChange)="applyChanges(compProps, i, j)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+  </tabset>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="row">
+    <button type="button" class="btn btn-primary" (click)="calculate()">Calculate</button>
+  </div>
+</div>
+<div class="container" *ngIf="showResult">
+  <div class="row">
+    <table class="table table-bordered table-hover table-nonfluid d-inline-block" style="display: inline-block">
+      <thead>
+        <tr class="table-primary">
+          <td></td>
+          <td>CPU Result</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of compProp1; let i = index; trackBy: trackByFn">
+          <td>{{ computerNames[i] }}</td>
+          <td>{{ row }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-hover table-nonfluid d-inline-block" style="display: inline-block">
+      <thead>
+        <tr class="table-primary">
+          <td></td>
+          <td>GPU Result</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of compProp2; let i = index; trackBy: trackByFn">
+          <td>{{ computerNames[i] }}</td>
+          <td>{{ row }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-hover table-nonfluid d-inline-block" >
+      <thead>
+        <tr class="table-primary">
+          <td></td>
+          <td>HDD Result</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of compProp3; let i = index; trackBy: trackByFn">
+          <td>{{ computerNames[i] }}</td>
+          <td>{{ row }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-hover table-nonfluid d-inline-block" style="width:auto">
+      <thead>
+        <tr class="table-primary">
+          <td></td>
+          <td>Коефіцієнти критеріїв</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of propCoef; let i = index; trackBy: trackByFn">
+          <td>{{ computerNames[i] }}</td>
+          <td>{{ row }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered table-hover table-nonfluid d-inline-block" style="width:auto">
+      <thead>
+        <tr class="table-primary">
+          <td></td>
+          <td>Оцінка вибору комп'ютера за критеріями</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of resultData; let i = index; trackBy: trackByFn">
+          <td>{{ computerNames[i] }}</td>
+          <td>{{ row }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <router-outlet></router-outlet>
