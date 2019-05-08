@@ -93,49 +93,25 @@
 </div>
 <div class="container" *ngIf="showResult">
   <div class="row">
-    <table class="table table-bordered table-hover table-nonfluid d-inline-block" style="display: inline-block">
+    <table class="table table-bordered table-hover">
       <thead>
         <tr class="table-primary">
           <td></td>
           <td>CPU Result</td>
+          <td>GPU Result</td>
+          <td>HDD Result</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of compProp1; let i = index; trackBy: trackByFn">
           <td>{{ computerNames[i] }}</td>
           <td>{{ row }}</td>
+          <td>{{ compProp2[i] }}</td>
+          <td>{{ compProp3[i] }}</td>
         </tr>
       </tbody>
     </table>
-    <table class="table table-bordered table-hover table-nonfluid d-inline-block" style="display: inline-block">
-      <thead>
-        <tr class="table-primary">
-          <td></td>
-          <td>GPU Result</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of compProp2; let i = index; trackBy: trackByFn">
-          <td>{{ computerNames[i] }}</td>
-          <td>{{ row }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="table table-bordered table-hover table-nonfluid d-inline-block" >
-      <thead>
-        <tr class="table-primary">
-          <td></td>
-          <td>HDD Result</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of compProp3; let i = index; trackBy: trackByFn">
-          <td>{{ computerNames[i] }}</td>
-          <td>{{ row }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="table table-bordered table-hover table-nonfluid d-inline-block" style="width:auto">
+    <table class="table table-bordered table-hover table-nonfluid d-inline-block">
       <thead>
         <tr class="table-primary">
           <td></td>
@@ -144,7 +120,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let row of propCoef; let i = index; trackBy: trackByFn">
-          <td>{{ computerNames[i] }}</td>
+          <td>{{ propNames[i] }}</td>
           <td>{{ row }}</td>
         </tr>
       </tbody>
